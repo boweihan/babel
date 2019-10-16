@@ -539,7 +539,7 @@ export default class StatementParser extends ExpressionParser {
         ? "for-of statement"
         : "for-in statement";
       this.toAssignable(init, undefined, description);
-      this.checkLVal(init, undefined, undefined, description);
+      this.checkLVal(init, undefined, undefined, description, true);
       return this.parseForIn(node, init, awaitAt);
     } else if (refShorthandDefaultPos.start) {
       this.unexpected(refShorthandDefaultPos.start);
@@ -663,7 +663,7 @@ export default class StatementParser extends ExpressionParser {
         clause.param = this.parseBindingAtom();
         const simple = clause.param.type === "Identifier";
         this.scope.enter(simple ? SCOPE_SIMPLE_CATCH : 0);
-        this.checkLVal(clause.param, BIND_LEXICAL, null, "catch clause");
+        this.checkLVal(clause.param, BIND_LEXICAL, null, "catch clause", true);
         this.expect(tt.parenR);
       } else {
         clause.param = null;
@@ -1021,6 +1021,7 @@ export default class StatementParser extends ExpressionParser {
       kind === "var" ? BIND_VAR : BIND_LEXICAL,
       undefined,
       "variable declaration",
+      true,
     );
   }
 
@@ -1130,6 +1131,7 @@ export default class StatementParser extends ExpressionParser {
         : BIND_FUNCTION,
       null,
       "function name",
+      true,
     );
   }
 
@@ -1626,7 +1628,7 @@ export default class StatementParser extends ExpressionParser {
     if (this.match(tt.name)) {
       node.id = this.parseIdentifier();
       if (isStatement) {
-        this.checkLVal(node.id, bindingType, undefined, "class name");
+        this.checkLVal(node.id, bindingType, undefined, "class name", true);
       }
     } else {
       if (optionalId || !isStatement) {
@@ -2053,6 +2055,7 @@ export default class StatementParser extends ExpressionParser {
       BIND_LEXICAL,
       undefined,
       contextDescription,
+      true,
     );
     node.specifiers.push(this.finishNode(specifier, type));
   }
@@ -2131,6 +2134,7 @@ export default class StatementParser extends ExpressionParser {
       BIND_LEXICAL,
       undefined,
       "import specifier",
+      true,
     );
     node.specifiers.push(this.finishNode(specifier, "ImportSpecifier"));
   }

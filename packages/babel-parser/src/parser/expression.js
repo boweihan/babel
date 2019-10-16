@@ -212,10 +212,9 @@ export default class ExpressionParser extends LValParser {
       // validate expression
 
       const allowAssignmentPattern =
-        node.right.type === "ObjectPattern" ||
-        node.right.type === "ArrayPattern";
-
-      // node.right.type === "Identifier"
+        node.right.type === "ObjectExpression" ||
+        node.right.type === "ArrayExpression" ||
+        node.right.type === "Identifier"; // how to evaluate Identifier?
 
       this.checkLVal(
         left,
@@ -518,7 +517,13 @@ export default class ExpressionParser extends LValParser {
       }
 
       if (update) {
-        this.checkLVal(node.argument, undefined, undefined, "prefix operation");
+        this.checkLVal(
+          node.argument,
+          undefined,
+          undefined,
+          "prefix operation",
+          true,
+        );
       } else if (this.state.strict && node.operator === "delete") {
         const arg = node.argument;
 
@@ -547,7 +552,7 @@ export default class ExpressionParser extends LValParser {
       node.operator = this.state.value;
       node.prefix = false;
       node.argument = expr;
-      this.checkLVal(expr, undefined, undefined, "postfix operation");
+      this.checkLVal(expr, undefined, undefined, "postfix operation", true);
       this.next();
       expr = this.finishNode(node, "UpdateExpression");
     }
@@ -1995,7 +2000,7 @@ export default class ExpressionParser extends LValParser {
     this.state.inParameters = oldInParameters;
     // Ensure the function name isn't a forbidden identifier in strict mode, e.g. 'eval'
     if (this.state.strict && node.id) {
-      this.checkLVal(node.id, BIND_OUTSIDE, undefined, "function name");
+      this.checkLVal(node.id, BIND_OUTSIDE, undefined, "function name", true);
     }
     this.state.strict = oldStrict;
   }
@@ -2023,6 +2028,7 @@ export default class ExpressionParser extends LValParser {
         BIND_VAR,
         allowDuplicates ? null : nameHash,
         "function parameter list",
+        true,
       );
     }
   }

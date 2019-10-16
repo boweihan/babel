@@ -1,7 +1,7 @@
 {
   "type": "File",
   "start": 0,
-  "end": 31,
+  "end": 30,
   "loc": {
     "start": {
       "line": 1,
@@ -9,13 +9,13 @@
     },
     "end": {
       "line": 1,
-      "column": 31
+      "column": 30
     }
   },
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 31,
+    "end": 30,
     "loc": {
       "start": {
         "line": 1,
@@ -23,7 +23,7 @@
       },
       "end": {
         "line": 1,
-        "column": 31
+        "column": 30
       }
     },
     "sourceType": "script",
@@ -32,7 +32,7 @@
       {
         "type": "ExpressionStatement",
         "start": 0,
-        "end": 31,
+        "end": 30,
         "loc": {
           "start": {
             "line": 1,
@@ -40,13 +40,13 @@
           },
           "end": {
             "line": 1,
-            "column": 31
+            "column": 30
           }
         },
         "expression": {
           "type": "AssignmentExpression",
           "start": 0,
-          "end": 31,
+          "end": 30,
           "loc": {
             "start": {
               "line": 1,
@@ -54,7 +54,7 @@
             },
             "end": {
               "line": 1,
-              "column": 31
+              "column": 30
             }
           },
           "operator": "=",
@@ -182,7 +182,7 @@
           "right": {
             "type": "ArrayExpression",
             "start": 19,
-            "end": 31,
+            "end": 30,
             "loc": {
               "start": {
                 "line": 1,
@@ -190,52 +190,52 @@
               },
               "end": {
                 "line": 1,
-                "column": 31
+                "column": 30
               }
             },
             "elements": [
               {
                 "type": "ObjectExpression",
-                "start": 21,
-                "end": 30,
+                "start": 20,
+                "end": 29,
                 "loc": {
                   "start": {
                     "line": 1,
-                    "column": 21
+                    "column": 20
                   },
                   "end": {
                     "line": 1,
-                    "column": 30
+                    "column": 29
                   }
                 },
                 "properties": [
                   {
                     "type": "ObjectProperty",
-                    "start": 23,
-                    "end": 28,
+                    "start": 22,
+                    "end": 27,
                     "loc": {
                       "start": {
                         "line": 1,
-                        "column": 23
+                        "column": 22
                       },
                       "end": {
                         "line": 1,
-                        "column": 28
+                        "column": 27
                       }
                     },
                     "method": false,
                     "key": {
                       "type": "Identifier",
-                      "start": 23,
-                      "end": 24,
+                      "start": 22,
+                      "end": 23,
                       "loc": {
                         "start": {
                           "line": 1,
-                          "column": 23
+                          "column": 22
                         },
                         "end": {
                           "line": 1,
-                          "column": 24
+                          "column": 23
                         },
                         "identifierName": "x"
                       },
@@ -245,16 +245,16 @@
                     "shorthand": false,
                     "value": {
                       "type": "NumericLiteral",
-                      "start": 27,
-                      "end": 28,
+                      "start": 26,
+                      "end": 27,
                       "loc": {
                         "start": {
                           "line": 1,
-                          "column": 27
+                          "column": 26
                         },
                         "end": {
                           "line": 1,
-                          "column": 28
+                          "column": 27
                         }
                       },
                       "extra": {

@@ -2060,6 +2060,7 @@ export default (superClass: Class<Parser>): Class<Parser> =>
           bindingType,
           checkClashes,
           contextDescription,
+          true,
         );
       }
     }

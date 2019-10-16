@@ -429,7 +429,7 @@ export default class LValParser extends NodeUtils {
         break;
 
       case "AssignmentPattern":
-        if (allowAssignmentPattern) {
+        if (!allowAssignmentPattern) {
           this.raise(
             expr.start,
             `Invalid target for an assignment pattern within an expression`,

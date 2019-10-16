@@ -121,7 +121,13 @@ export default (superClass: Class<Parser>): Class<Parser> =>
           });
           break;
         default:
-          super.checkLVal(expr, bindingType, checkClashes, contextDescription);
+          super.checkLVal(
+            expr,
+            bindingType,
+            checkClashes,
+            contextDescription,
+            true,
+          );
       }
     }
 
