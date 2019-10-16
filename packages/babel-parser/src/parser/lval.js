@@ -348,6 +348,7 @@ export default class LValParser extends NodeUtils {
     bindingType: BindingTypes = BIND_NONE,
     checkClashes: ?{ [key: string]: boolean },
     contextDescription: string,
+    allowAssignmentPattern: boolean,
   ): void {
     switch (expr.type) {
       case "Identifier":
@@ -408,6 +409,7 @@ export default class LValParser extends NodeUtils {
             bindingType,
             checkClashes,
             "object destructuring pattern",
+            allowAssignmentPattern,
           );
         }
         break;
@@ -420,17 +422,25 @@ export default class LValParser extends NodeUtils {
               bindingType,
               checkClashes,
               "array destructuring pattern",
+              allowAssignmentPattern,
             );
           }
         }
         break;
 
       case "AssignmentPattern":
+        if (allowAssignmentPattern) {
+          this.raise(
+            expr.start,
+            `Invalid target for an assignment pattern within an expression`,
+          );
+        }
         this.checkLVal(
           expr.left,
           bindingType,
           checkClashes,
           "assignment pattern",
+          allowAssignmentPattern,
         );
         break;
 
@@ -440,6 +450,7 @@ export default class LValParser extends NodeUtils {
           bindingType,
           checkClashes,
           "rest element",
+          allowAssignmentPattern,
         );
         break;
 
@@ -449,6 +460,7 @@ export default class LValParser extends NodeUtils {
           bindingType,
           checkClashes,
           "parenthesized expression",
+          allowAssignmentPattern,
         );
         break;
 

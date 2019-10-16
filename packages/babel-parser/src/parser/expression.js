@@ -200,12 +200,30 @@ export default class ExpressionParser extends LValParser {
       if (operator === "||=" || operator === "&&=") {
         this.expectPlugin("logicalAssignment");
       }
+
       node.left = this.match(tt.eq)
         ? this.toAssignable(left, undefined, "assignment expression")
         : left;
       refShorthandDefaultPos.start = 0; // reset because shorthand default was used correctly
 
-      this.checkLVal(left, undefined, undefined, "assignment expression");
+      this.next();
+      node.right = this.parseMaybeAssign(noIn);
+
+      // validate expression
+
+      const allowAssignmentPattern =
+        node.right.type === "ObjectPattern" ||
+        node.right.type === "ArrayPattern";
+
+      // node.right.type === "Identifier"
+
+      this.checkLVal(
+        left,
+        undefined,
+        undefined,
+        "assignment expression",
+        allowAssignmentPattern,
+      );
 
       const maybePattern = unwrapParenthesizedExpression(left);
 
@@ -227,8 +245,6 @@ export default class ExpressionParser extends LValParser {
         );
       }
 
-      this.next();
-      node.right = this.parseMaybeAssign(noIn);
       return this.finishNode(node, "AssignmentExpression");
     } else if (failOnShorthandAssign && refShorthandDefaultPos.start) {
       this.unexpected(refShorthandDefaultPos.start);
